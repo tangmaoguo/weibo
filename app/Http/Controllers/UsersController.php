@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 class UsersController extends Controller
 {
-    public function register(){
-        return view('users.register');
+    public function create(){
+        return view('users.create');
     }
 
     public function show(User $user){
