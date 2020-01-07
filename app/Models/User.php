@@ -14,7 +14,7 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array
-     * @desc 只有这些字段可以被更新
+     * @desc 可以被批量赋值的属性
      */
     protected $fillable = [
         'name', 'email', 'password',
