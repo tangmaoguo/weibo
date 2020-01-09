@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 class UsersController extends Controller
 {
     public function create(){
@@ -27,6 +29,7 @@ class UsersController extends Controller
             'password'=>bcrypt($request->password)
         ]);
         session()->flash('success','注册成功');
+        Auth::login($user);
         return redirect()->route('users.show',[$user]);
 
     }

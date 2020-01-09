@@ -16,12 +16,18 @@ class SessionsController extends Controller
             'password'=>'required|min:6'
         ]);
 
-        if(Auth::attempt($credentials)){
+        if(Auth::attempt($credentials,$request->has('remember'))){
             session()->flash('success','登录成功');
             return redirect()->route('users.show',Auth::user());
         }else{
            session()->flash('danger','邮箱和密码不匹配');
            return redirect()->back()->withInput();
         }
+    }
+
+    public function destroy(){
+        Auth::logout();
+        session()->flash('success','退出成功');
+        return redirect('login');
     }
 }
