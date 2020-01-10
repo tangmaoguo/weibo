@@ -11,7 +11,6 @@
 
         <div class="mt-3">
             {!! $users->render() !!}
-
         </div>
     </div>
 @endsection

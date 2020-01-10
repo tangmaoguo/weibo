@@ -62,9 +62,9 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return mixed
      */
-    public function delete(User $user, User $model)
+    public function destroy(User $user, User $model)
     {
-        //
+        return $user->is_admin && $user->id !== $model->id;
     }
 
     /**
