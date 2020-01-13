@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Support\Str;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -43,6 +43,14 @@ class User extends Authenticatable
     public function gravatar($size = '80'){
         $hash = md5(strtolower(trim($this->attributes['email'])));
         return "https://s.gravatar.com/avatar/$hash?s=$size";
+    }
+
+    public static function boot(){
+        parent::boot();
+        static::creating(function($user){
+            $user->activation_token = Str::random(10);
+        });
+
     }
 }
 
