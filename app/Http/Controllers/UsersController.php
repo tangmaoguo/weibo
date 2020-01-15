@@ -78,13 +78,11 @@ class UsersController extends Controller
     protected function sendEmailConfirmationTo($user){
         $view = 'users.confirm_email';
         $data = compact('user');
-        $from = '1096301477@qq.com';
-        $name = 'tangmaoguo';
         $to = $user->email;
         $subject = "感谢注册 Weibo 应用！请确认你的邮箱。";
 
-        Mail::send($view,$data,function($message) use ($from,$name,$to,$subject){
-           $message->from($from,$name)->to($to)->subject($subject);
+        Mail::send($view, $data, function ($message) use ($to, $subject) {
+            $message->to($to)->subject($subject);
         });
     }
 
