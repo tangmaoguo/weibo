@@ -7,14 +7,18 @@
                 <section class="status_form">
                     @include('statuses._status_form')
                 </section>
+                <h4>微博列表</h4>
+                <hr>
+                @include('statuses._feed')
             </div>
             <aside class="col-md-4">
                 <section class="user_info">
                     @include('users._user_info',['user'=>Auth::user()])
                 </section>
             </aside>
+
         </div>
-        @else
+    @else
         <div class="jumbotron">
             <h1>Hello Laravel</h1>
             <p class="lead">
@@ -27,6 +31,6 @@
                 <a class="btn btn-lg btn-success" href="{{ route('users.create') }}" role="button">现在注册</a>
             </p>
         </div>
-        @endif
+    @endif
 
 @endsection
