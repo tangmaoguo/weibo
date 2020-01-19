@@ -60,6 +60,48 @@ class User extends Authenticatable
     public function feed(){
         return $this->statuses()->orderBy('created_at','desc');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @desc 粉丝关系列表
+     */
+    public function followers(){
+        return $this->belongsToMany(User::class,'followers','user_id','follower_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @desc 关注用户列表
+     */
+    public function followings(){
+        return $this->belongsToMany(User::class,'followers','follower_id','user_id');
+    }
+
+    /**
+     * @param $user_id
+     * @return array
+     * @desc 关注用户
+     */
+    public function follow($user_id){
+        if(!is_array($user_id)){
+            $user_id = compact('user_id');
+        }
+        return $this->followings()->sync($user_id,false);
+    }
+
+    public function unfollow($user_id){
+        if(!is_array($user_id)){
+            $user_id = compact('user_id');
+        }
+        return $this->followings()->detach($user_id);
+    }
+
+    public function isFollowing($user_id){
+        return $this->followings->contains($user_id);
+    }
+
+
+
 }
 
 
