@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 class User extends Authenticatable
 {
@@ -58,7 +59,12 @@ class User extends Authenticatable
     }
 
     public function feed(){
-        return $this->statuses()->orderBy('created_at','desc');
+//        DB::connection()->enableQueryLog();
+        $followings_ids = $this->followings->pluck('id')->toArray();
+        array_push($followings_ids, $this->id);
+        return Status::whereIn('user_id',$followings_ids)->orderBy('created_at','desc');
+//        dump(DB::getQueryLog());die;
+
     }
 
     /**
