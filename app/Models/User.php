@@ -89,6 +89,11 @@ class User extends Authenticatable
         return $this->followings()->sync($user_id,false);
     }
 
+    /**
+     * @param $user_id
+     * @return int
+     * @desc 取消关注
+     */
     public function unfollow($user_id){
         if(!is_array($user_id)){
             $user_id = compact('user_id');

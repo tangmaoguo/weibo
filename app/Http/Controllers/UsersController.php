@@ -111,4 +111,19 @@ class UsersController extends Controller
         $title = $user->name . '的粉丝';
         return view('users.show_follow', compact('users', 'title'));
     }
+
+    public function follow(User $user){
+        $this->authorize('follow',$user);
+        if(!Auth::user()->isFollowing($user->id)){
+            Auth::user()->follow($user->id);
+        }
+        return redirect()->route('users.show',[$user]);
+    }
+    public function unfollow(User $user){
+        $this->authorize('follow',$user);
+        if(Auth::user()->isFollowing($user->id)){
+            Auth::user()->unfollow($user->id);
+        }
+        return redirect()->route('users.show',[$user]);
+    }
 }

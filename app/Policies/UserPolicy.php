@@ -90,4 +90,8 @@ class UserPolicy
     {
         //
     }
+
+    public function follow(User $user,User $model){
+        return $user->id !== $model->id;
+    }
 }
